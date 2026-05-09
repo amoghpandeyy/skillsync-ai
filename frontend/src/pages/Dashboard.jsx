@@ -22,7 +22,8 @@ function Dashboard() {
 
   const fetchTask = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/tasks/random');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${API_URL}/api/tasks/random`);
       if (res.data) setTask(res.data);
       else setTask(null);
       setImprovedResponse('');
@@ -36,7 +37,8 @@ function Dashboard() {
   const submitTask = async () => {
     if (!task) return;
     try {
-      const res = await axios.post('http://localhost:5000/api/tasks/submit', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.post(`${API_URL}/api/tasks/submit`, {
         userId: user.id,
         taskId: task._id,
         improvedResponse,
